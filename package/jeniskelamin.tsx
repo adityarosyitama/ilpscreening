@@ -1,5 +1,5 @@
 import React from 'react'
-import './datepicker.css'
+import './style.css'
 
 export default function Jeniskelamin({gender, setGender}:{gender:any, setGender:any}) {
     // const [gender, setGender] = useState(''); // Inisialisasi state untuk jenis kelamin yang dipilih
