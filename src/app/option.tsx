@@ -11,14 +11,14 @@ import Umurbb from '../../package/umurbb';
 
 export default function Option() {
     const [name, setName] = useState('')
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date().valueOf());
     const [age, setAge] = useState(0)
     const [gender, setGender] = useState('')
     const [nobpjs, setNobpjs] = useState('');
-    
+
     const [opsi, setOpsi] = useState("");
-    const [umurbb, setUmurbb] = useState(0);
-    
+    const [umurbb, setUmurbb] = useState('');
+
     const [name2, setName2] = useState('')
     const [startDate2, setStartDate2] = useState(new Date());
     const [age2, setAge2] = useState(0)
@@ -26,11 +26,11 @@ export default function Option() {
     const [nobpjs2, setNobpjs2] = useState('');
 
     useEffect(() => {
-        setAge(Age(moment(new Date() - startDate)))
+        setAge(Age(moment(new Date().valueOf() - startDate.valueOf())))
     }, [startDate]);
 
     useEffect(() => {
-        setAge2(Age(moment(new Date() - startDate2)))
+        setAge2(Age(moment(new Date().valueOf() - startDate2.valueOf())))
     }, [startDate2]);
 
     const opsi2 = () => {
@@ -46,17 +46,17 @@ export default function Option() {
     }
 
     const data = {
-        nama:name,
-        tanggallahir:startDate,
-        umur:age,
-        jeniskelamin:gender,
-        nomorbpjs:nobpjs,
-        umurbb:umurbb,
-        nama2:name2,
-        tanggallahir2:startDate2,
-        umur2:age2,
-        jeniskelamin2:gender2,
-        nomorbpjs2:nobpjs2
+        nama: name,
+        tanggallahir: startDate,
+        umur: age,
+        jeniskelamin: gender,
+        nomorbpjs: nobpjs,
+        umurbb: umurbb,
+        nama2: name2,
+        tanggallahir2: startDate2,
+        umur2: age2,
+        jeniskelamin2: gender2,
+        nomorbpjs2: nobpjs2
     }
 
     return (
@@ -83,25 +83,24 @@ export default function Option() {
                                             <Opsi opsi={opsi} setOpsi={setOpsi} />
                                             : ""
                                     }
+                                    {
+                                        opsi === "Bumil" && age >= 5 ?
+                                            <div>
+                                                <p>Umur Bumil</p>
+                                                <Umurbb umurbb={umurbb} setUmurbb={setUmurbb} />
+                                            </div>
+                                            :
+                                            opsi === "Busui" && age >= 5 ?
+                                                <div>
+                                                    <p>Umur Busui</p>
+                                                    <Umurbb umurbb={umurbb} setUmurbb={setUmurbb} />
+                                                </div>
+                                                : ""
+                                    }
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            {
-                                opsi === "Bumil" && age >= 5 ?
-                                    <div>
-                                        <p>Umur Bumil</p>
-                                        <Umurbb umurbb={umurbb} setUmurbb={setUmurbb}/>
-                                    </div>
-                                    :
-                                    opsi === "Busui" && age >= 5 ?
-                                        <div>
-                                            <p>Umur Busui</p>
-                                            <Umurbb umurbb={umurbb} setUmurbb={setUmurbb}/>
-                                        </div>
-                                        : ""
-                            }
-                        </div>
+
                     </div>
                     <div>
                         <p>Nomor BPJS</p>

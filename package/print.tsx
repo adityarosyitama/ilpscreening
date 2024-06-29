@@ -13,9 +13,10 @@ export default function Print(data:any) {
     return (
         <div>
           <PrintComponent
-            component={MyPrintableComponent}
-            trigger="button"
-            filename="antrian"
+          
+            // component={MyPrintableComponent}
+            // trigger="button"
+            // filename="antrian"
           >
             <button>Print</button>
           </PrintComponent>

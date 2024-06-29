@@ -9,7 +9,7 @@ export default function Umurbb({umurbb, setUmurbb}:{umurbb:any, setUmurbb:any}) 
     
     return (
       <div>
-        <input className='DP' type="type" value={umurbb} onChange={handleumurbbChange} placeholder="umurbb Lengkap" />
+        <input className='DP' type="type" value={umurbb} onChange={handleumurbbChange} placeholder="Umur" />
       </div>
     );
 }

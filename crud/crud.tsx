@@ -1,5 +1,5 @@
 export function Post() {
-    const Apispread = process.env.apispread
+    const Apispread = process.env.apispread ===undefined ? "":process.env.apispread
     fetch(Apispread, {
         method: "POST",
         headers: {
@@ -31,7 +31,7 @@ export function Post() {
 }
 
 export function ApiCount() {
-    const Apispread = process.env.apispread
+    const Apispread = process.env.apispread===undefined?"":process.env.apispread
     fetch(`${Apispread}?count`).then(res => {
         if (res.status === 200) {
             // SUCCESS
