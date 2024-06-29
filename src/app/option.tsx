@@ -59,6 +59,8 @@ export default function Option() {
         nomorbpjs2: nobpjs2
     }
 
+
+
     return (
         <div className='flex flex-col md:gap-10 gap-3'>
             <p className='flex font-bold text-center md:text-5xl text-2xl text-cyan-400'>Opsi Pilihan</p>
@@ -130,7 +132,7 @@ export default function Option() {
                         </div>
                 }
             </div>
-            <div>
+            <div className='flex flex-col gap-5'>
                 <Buttonsubmit />
             </div>
         </div>
