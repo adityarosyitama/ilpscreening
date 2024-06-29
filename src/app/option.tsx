@@ -7,18 +7,20 @@ import Nobpjs from '../../package/nobpjs';
 import Buttonsubmit from '../../package/buttonsubmit';
 import moment from 'moment';
 import Opsi from '../../package/opsi';
+import Umurbb from '../../package/umurbb';
 
 export default function Option() {
-    const [startDate, setStartDate] = useState(new Date());
     const [name, setName] = useState('')
+    const [startDate, setStartDate] = useState(new Date());
     const [age, setAge] = useState(0)
     const [gender, setGender] = useState('')
     const [nobpjs, setNobpjs] = useState('');
     
     const [opsi, setOpsi] = useState("");
+    const [umurbb, setUmurbb] = useState(0);
     
-    const [startDate2, setStartDate2] = useState(new Date());
     const [name2, setName2] = useState('')
+    const [startDate2, setStartDate2] = useState(new Date());
     const [age2, setAge2] = useState(0)
     const [gender2, setGender2] = useState('')
     const [nobpjs2, setNobpjs2] = useState('');
@@ -26,27 +28,41 @@ export default function Option() {
     useEffect(() => {
         setAge(Age(moment(new Date() - startDate)))
     }, [startDate]);
+
     useEffect(() => {
         setAge2(Age(moment(new Date() - startDate2)))
     }, [startDate2]);
-    console.log(new Date(), startDate, age)
-    // console.log(name, birthday, age, gender, nobpjs)
+
     const opsi2 = () => {
         if (opsi === "Busui") { return false }
         if (age > 5) { return true }
         if (Tgl(startDate) === Tgl(new Date())) { return true }
         else { return false }
     }
+
     const opsi3 = () => {
         if (age <= 5) { return "Busui" }
         if (opsi === "Busui") { return "Balita" }
     }
-    console.log(opsi2())
+
+    const data = {
+        nama:name,
+        tanggallahir:startDate,
+        umur:age,
+        jeniskelamin:gender,
+        nomorbpjs:nobpjs,
+        umurbb:umurbb,
+        nama2:name2,
+        tanggallahir2:startDate2,
+        umur2:age2,
+        jeniskelamin2:gender2,
+        nomorbpjs2:nobpjs2
+    }
 
     return (
-        <div className='flex flex-col md:gap-3 gap-5'>
+        <div className='flex flex-col md:gap-10 gap-3'>
             <p className='flex font-bold text-center md:text-5xl text-2xl text-cyan-400'>Opsi Pilihan</p>
-            <div className='flex md:flex-row flex-col justify-between gap-5'>
+            <div className='flex sm:flex-row flex-col justify-between md:gap-20 gap-10 '>
                 <div className='flex flex-col gap-1'>
                     <div>
                         <p>Nama Lengkap</p>
@@ -75,11 +91,13 @@ export default function Option() {
                                 opsi === "Bumil" && age >= 5 ?
                                     <div>
                                         <p>Umur Bumil</p>
+                                        <Umurbb umurbb={umurbb} setUmurbb={setUmurbb}/>
                                     </div>
                                     :
                                     opsi === "Busui" && age >= 5 ?
                                         <div>
                                             <p>Umur Busui</p>
+                                            <Umurbb umurbb={umurbb} setUmurbb={setUmurbb}/>
                                         </div>
                                         : ""
                             }
