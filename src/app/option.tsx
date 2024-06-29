@@ -12,33 +12,49 @@ export default function Option() {
     const [startDate, setStartDate] = useState(new Date());
     const [name, setName] = useState('')
     const [age, setAge] = useState(0)
-    const [birthday, setBirthday] = useState(0)
     const [gender, setGender] = useState('')
     const [nobpjs, setNobpjs] = useState('');
-
+    
     const [opsi, setOpsi] = useState("");
+    
+    const [startDate2, setStartDate2] = useState(new Date());
+    const [name2, setName2] = useState('')
+    const [age2, setAge2] = useState(0)
+    const [gender2, setGender2] = useState('')
+    const [nobpjs2, setNobpjs2] = useState('');
 
     useEffect(() => {
         setAge(Age(moment(new Date() - startDate)))
-        setBirthday(moment(startDate).format("DD/MM/YYYY"))
     }, [startDate]);
-    // console.log('', new Date(), startDate, Age(moment(new Date() - startDate)),moment(startDate).format("DD/MM/YYYY"))
-    console.log(name, birthday, age, gender, nobpjs)
-
-
+    useEffect(() => {
+        setAge2(Age(moment(new Date() - startDate2)))
+    }, [startDate2]);
+    console.log(new Date(), startDate, age)
+    // console.log(name, birthday, age, gender, nobpjs)
+    const opsi2 = () => {
+        if (opsi === "Busui") { return false }
+        if (age > 5) { return true }
+        if (Tgl(startDate) === Tgl(new Date())) { return true }
+        else { return false }
+    }
+    const opsi3 = () => {
+        if (age <= 5) { return "Busui" }
+        if (opsi === "Busui") { return "Balita" }
+    }
+    console.log(opsi2())
 
     return (
-        <div className='flex flex-col md:gap-3 gap-1'>
+        <div className='flex flex-col md:gap-3 gap-5'>
             <p className='flex font-bold text-center md:text-5xl text-2xl text-cyan-400'>Opsi Pilihan</p>
-            <div className='flex md:flex-row flex-col justify-between'>
-                <div>
+            <div className='flex md:flex-row flex-col justify-between gap-5'>
+                <div className='flex flex-col gap-1'>
                     <div>
                         <p>Nama Lengkap</p>
                         <Namalengkap name={name} setName={setName} />
                     </div>
                     <div>
-                        <p>Nomor BPJS</p>
-                        <Nobpjs nobpjs={nobpjs} setNobpjs={setNobpjs} />
+                        <p>Tanggal Lahir</p>
+                        <Datepicker setStartDate={setStartDate} startDate={startDate} />
                     </div>
                     <div className='flex flex-row justify-between gap-3'>
                         <div>
@@ -70,15 +86,32 @@ export default function Option() {
                         </div>
                     </div>
                     <div>
-                        <p>Tanggal Lahir</p>
-                        <Datepicker setStartDate={setStartDate} startDate={startDate} />
+                        <p>Nomor BPJS</p>
+                        <Nobpjs nobpjs={nobpjs} setNobpjs={setNobpjs} />
                     </div>
                 </div>
-                <div>
-                    <div>
-                        <p>Nama Lengkap Balita/Busui/Bumil</p>
-                    </div>
-                </div>
+                {
+                    opsi2() ? ""
+                        :
+                        <div className='flex flex-col gap-1'>
+                            <div>
+                                <p>Nama Lengkap {opsi3()}</p>
+                                <Namalengkap name={name2} setName={setName2} />
+                            </div>
+                            <div>
+                                <p>Tanggal Lahir</p>
+                                <Datepicker setStartDate={setStartDate2} startDate={startDate2} />
+                            </div>
+                            <div>
+                                <p>Jenis Kelamin</p>
+                                <Jeniskelamin gender={gender2} setGender={setGender2} />
+                            </div>
+                            <div>
+                                <p>Nomor BPJS</p>
+                                <Nobpjs nobpjs={nobpjs2} setNobpjs={setNobpjs2} />
+                            </div>
+                        </div>
+                }
             </div>
             <div>
                 <Buttonsubmit />
@@ -88,6 +121,10 @@ export default function Option() {
 }
 
 const Age = (i: any) => {
-    const ageInYears = Math.abs(i / (1000 * 60 * 60 * 24 * 365));
+    const ageInYears = (i / (1000 * 60 * 60 * 24 * 365));
     return Math.round(ageInYears)
+}
+
+const Tgl = (i: any) => {
+    return moment(i).format("DD/MM/YYYY")
 }
