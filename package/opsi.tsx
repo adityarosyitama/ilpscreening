@@ -10,8 +10,8 @@ export default function Opsi({opsi, setOpsi}:{opsi:any, setOpsi:any}) {
 
     return (
         <div>
-            <select className='DP' value={opsi} onChange={handleopsiChange}>
-                <option className='DP' value="">Pilih Jenis opsi</option>
+            <select className='DP OB' value={opsi} onChange={handleopsiChange}>
+                <option className='DP' value="">Pilih</option>
                 <option className='DP' value="Bumil">Bumil</option>
                 <option className='DP' value="Busui">Busui</option>
             </select>

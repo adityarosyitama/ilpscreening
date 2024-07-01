@@ -15,25 +15,40 @@ export default function Option() {
     const [age, setAge] = useState(0)
     const [gender, setGender] = useState('')
     const [nobpjs, setNobpjs] = useState('');
-
-    const [opsi, setOpsi] = useState("");
     const [umurbb, setUmurbb] = useState('');
+    const [opsi, setOpsi] = useState("");
 
+    
     const [name2, setName2] = useState('')
     const [startDate2, setStartDate2] = useState(new Date());
     const [age2, setAge2] = useState(0)
     const [gender2, setGender2] = useState('')
     const [nobpjs2, setNobpjs2] = useState('');
+    const [umurbb2, setUmurbb2] = useState('');
+    const [opsi2, setOpsi2] = useState("");
 
     useEffect(() => {
-        setAge(Age(moment(new Date().valueOf() - startDate.valueOf())))
+        const age_ = Age(moment(new Date().valueOf() - startDate.valueOf()))
+        if (age_ < 0) { return }
+        setAge(age_)
     }, [startDate]);
 
     useEffect(() => {
-        setAge2(Age(moment(new Date().valueOf() - startDate2.valueOf())))
+        const age_ = Age(moment(new Date().valueOf() - startDate2.valueOf()))
+        if (age_ < 0) { return }
+        setAge2(age_)
     }, [startDate2]);
 
-    const opsi2 = () => {
+    useEffect(() => {
+        if (opsi === "") { setGender2("") }
+        if (age <= 5) { setGender2("Perempuan"); setOpsi2("Busui"); }
+        if (age > 5) { setGender2(""); setOpsi2(""); }
+    }, [age,opsi])
+    useEffect(() => {
+        if (gender === "Laki-Laki") { setOpsi('') }
+    }, [gender])
+
+    const opsi4 = () => {
         if (opsi === "Busui") { return false }
         if (age > 5) { return true }
         if (Tgl(startDate) === Tgl(new Date())) { return true }
@@ -52,14 +67,17 @@ export default function Option() {
         jeniskelamin: gender,
         nomorbpjs: nobpjs,
         umurbb: umurbb,
+        opsi:opsi,
         nama2: name2,
         tanggallahir2: startDate2,
         umur2: age2,
         jeniskelamin2: gender2,
-        nomorbpjs2: nobpjs2
+        nomorbpjs2: nobpjs2,
+        umurbb2:umurbb2,
+        opsi2:opsi2
     }
 
-
+    // console.log(data)
 
     return (
         <div className='flex flex-col md:gap-10 gap-3'>
@@ -89,13 +107,13 @@ export default function Option() {
                                         opsi === "Bumil" && age >= 5 ?
                                             <div>
                                                 <p>Umur Bumil</p>
-                                                <Umurbb umurbb={umurbb} setUmurbb={setUmurbb} />
+                                                <Umurbb umurbb={umurbb} setUmurbb={setUmurbb} opsi={opsi}/>
                                             </div>
                                             :
                                             opsi === "Busui" && age >= 5 ?
                                                 <div>
                                                     <p>Umur Busui</p>
-                                                    <Umurbb umurbb={umurbb} setUmurbb={setUmurbb} />
+                                                    <Umurbb umurbb={umurbb} setUmurbb={setUmurbb} opsi={opsi}/>
                                                 </div>
                                                 : ""
                                     }
@@ -110,7 +128,7 @@ export default function Option() {
                     </div>
                 </div>
                 {
-                    opsi2() ? ""
+                    opsi4() ? ""
                         :
                         <div className='flex flex-col gap-1'>
                             <div>
@@ -124,6 +142,15 @@ export default function Option() {
                             <div>
                                 <p>Jenis Kelamin</p>
                                 <Jeniskelamin gender={gender2} setGender={setGender2} />
+                                <div>
+                                    {
+                                        age >= 5 ? '' :
+                                            <div>
+                                                <p>Umur Busui</p>
+                                                <Umurbb umurbb={umurbb2} setUmurbb={setUmurbb2} opsi={opsi2}/>
+                                            </div>
+                                    }
+                                </div>
                             </div>
                             <div>
                                 <p>Nomor BPJS</p>
@@ -133,7 +160,7 @@ export default function Option() {
                 }
             </div>
             <div className='flex flex-col gap-5'>
-                <Buttonsubmit />
+                <Buttonsubmit data={data} />
             </div>
         </div>
     )
