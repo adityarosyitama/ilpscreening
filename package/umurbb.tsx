@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Umurbb({ umurbb, setUmurbb, opsi }: { umurbb: any, setUmurbb: any, opsi: any }) {
+export default function Umurbb({ umurbb, setUmurbb, status }: { umurbb: any, setUmurbb: any, status: any }) {
   // const [umurbb, setUmurbb] = useState('');
 
   const handlebumil = (event: any) => {
@@ -26,9 +26,9 @@ export default function Umurbb({ umurbb, setUmurbb, opsi }: { umurbb: any, setUm
 
   return (
     <div>
-      {opsi === "Busui" ?
+      {status === "Busui" ?
         <input className='DP BB' type="number" value={umurbb} onChange={handlebusui} placeholder="Umur" /> :
-        opsi === "Bumil" ?
+        status === "Bumil" ?
           <input className='DP BB' type="number" value={umurbb} onChange={handlebumil} placeholder="Umur" />
           : ''
       }
