@@ -1,6 +1,6 @@
 "use client"
 import React, { use, useEffect, useState } from 'react'
-import Datepicker from '../../package/datepicker';
+import Datepicker, { calculateWeek } from '../../package/datepicker';
 import Jeniskelamin from '../../package/jeniskelamin';
 import Namalengkap from '../../package/namalengkap';
 import Nobpjs from '../../package/nobpjs';
@@ -17,7 +17,6 @@ export default function Option() {
     const [umurbb, setUmurbb] = useState(0);
     const [status, setStatus] = useState("");
 
-
     const [name2, setName2] = useState('')
     const [startDate2, setStartDate2] = useState('');
     const [age2, setAge2] = useState({ Year: 0, Month: 0, Day: 0 })
@@ -26,45 +25,23 @@ export default function Option() {
     const [umurbb2, setUmurbb2] = useState(0);
     const [status2, setStatus2] = useState("");
 
-    // useEffect(() => {
-    //     const age_ = calculateAge(startDate)
-    //     if (age_.Year < 0) { return }
-    //     setAge(age_)
-    // }, [startDate]);
-
-    // useEffect(() => {
-    //     const age_ = calculateAge(startDate2)
-    //     if (age_.Year < 0) { return }
-    //     setAge2(age_)
-    // }, [startDate2]);
-
-    // useEffect(() => {
-    //     if (age.Year > 5) { setGender2(""); setStatus2(""); }
-    //     if (age.Year <= 5) { setGender2("Perempuan"); setStatus2("Busui"); }
-    //     if (age.Year <= 0 && age.Month <= 0 && age.Day <= 0) { setGender2(""); setStatus2(""); }
-    // }, [age, status])
-
-    // useEffect(() => {
-    //     if (gender === "Laki-Laki") { setStatus('') }
-    // }, [gender])
-
-    // const opsi4 = () => {
-    //     if (status === "Busui") { return false }
-    //     if (age.Year > 5) { return true }
-    //     if (age.Year <= 0 && age.Month <= 0 && age.Day <= 0) { return true }
-    //     else { return false }
-    // }
-
-    // const opsi3 = () => {
-    //     if (age.Year <= 5) { return "Busui" }
-    //     if (status === "Busui") { return "Balita" }
-    // }
+    useEffect(() => {
+        if (age.Year === 0 && age.Month === 0 && age.Day === 0) { return (setStatus(''), setStatus2('')), setStartDate2('') }
+        if (age.Year >= 0 && age.Year <= 5) { setStatus('Bayi'); setStatus2('Busui'); setGender(''); setGender2('Perempuan'); setStartDate2(''), setAge2({ Year: 0, Month: 0, Day: 0 }) }
+        if (age.Year >= 5) { setStatus(''); setStatus2(''); setGender(''); setGender2(''); setStartDate2(''), setAge2({ Year: 0, Month: 0, Day: 0 }) }
+    }, [age])
 
     useEffect(() => {
-        if (age.Year === 0 && age.Month === 0 && age.Day === 0) { return (setStatus(''), setStatus2('')) }
-        if (age.Year >= 0 && age.Year <= 5) { setStatus('Bayi'); setStatus2('Bumil'); setGender2('Perempuan') }
-        if (age.Year >= 5) { setStatus(''); setStatus2(''); setGender2(''); setStartDate2('') }
-    }, [age])
+        if (status === '' || status === 'Bayi' || status === 'Bumil') { return setUmurbb(0) }
+        if (status === 'Busui') { return setUmurbb(calculateWeek(startDate2).Week) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [age2, status])
+
+    useEffect(() => {
+        if (status2 === '' || status2 === 'Bayi' || status2 === 'Bumil') { return setUmurbb2(0) }
+        if (status2 === 'Busui') { return setUmurbb2(calculateWeek(startDate).Week) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [age, status2])
 
     useEffect(() => {
         if (status === 'Busui') { return setStatus2('Bayi') }
@@ -86,8 +63,8 @@ export default function Option() {
         umurbb2: umurbb2,
         status2: status2
     }
-    const handleReset = (event:any) => {
-        event.preventDefault();
+    const handleReset = (event: any) => {
+        // event.preventDefault();
         setName('');
         setStartDate('');
         setAge({ Year: 0, Month: 0, Day: 0 });
@@ -103,7 +80,9 @@ export default function Option() {
         setUmurbb2(0);
         setStatus2('');
     }
-
+    const minDate_ = () => {
+        if (data.status2 === 'Busui') { return data.tanggallahir }
+    }
     return (
         <div className='flex flex-col md:gap-10 gap-3'>
             <p className='flex font-bold text-center md:text-5xl text-2xl text-cyan-400'>status Pilihan</p>
@@ -115,7 +94,7 @@ export default function Option() {
                     </div>
                     <div>
                         <p>Tanggal Lahir {'(tgl/bln/thn)'}</p>
-                        <Datepicker setStartDate={setStartDate} startDate={startDate} age={age} setAge={setAge} />
+                        <Datepicker setStartDate={setStartDate} startDate={startDate} age={age} setAge={setAge} minDate={undefined} />
                     </div>
                     <div className='flex flex-row justify-between gap-3'>
                         <div>
@@ -162,7 +141,7 @@ export default function Option() {
                             </div>
                             <div>
                                 <p>Tanggal Lahir {'(tgl/bln/thn)'}</p>
-                                <Datepicker setStartDate={setStartDate2} startDate={startDate2} age={age2} setAge={setAge2} />
+                                <Datepicker setStartDate={setStartDate2} startDate={startDate2} age={age2} setAge={setAge2} minDate={minDate_()} />
                             </div>
                             <div>
                                 <p>Jenis Kelamin</p>
@@ -185,9 +164,10 @@ export default function Option() {
                 }
             </div>
             <div className='flex flex-row gap-5'>
-                <Buttonsubmit data={data} />
+                <Buttonsubmit data={data} reset={handleReset} />
                 <div>
-                    <form onSubmit={handleReset}>
+                    <form >
+                    {/* onSubmit={handleReset} */}
                         <button className='button' type='submit'>Reset</button>
                     </form>
                 </div>
@@ -195,23 +175,3 @@ export default function Option() {
         </div>
     )
 }
-
-// const Tgl = (i: any) => {
-//     return moment(i).format("DD/MM/YYYY")
-// }
-
-// function calculateAge(birthDate: any) {
-//     let date1 = new Date(birthDate);
-//     let date2 = new Date();
-//     let difference = Number(date2.getTime()) - Number(date1.getTime());
-//     let days = Math.floor(difference / (1000 * 60 * 60 * 24))
-
-//     let cek = Number(date2.getTime()) < Number(date1.getTime())
-//     let years = Math.floor(days / 365);
-//     let months = Math.floor((days % 365) / 30);
-//     let rdays = days % 30;
-//     let years_ = isNaN(years) || cek ? 0 : years;
-//     let months_ = isNaN(months) || cek ? 0 : months;
-//     let rdays_ = isNaN(rdays) || cek ? 0 : rdays;
-//     return { Year: years_, Month: months_, Day: rdays_ };
-// }

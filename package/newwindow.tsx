@@ -1,8 +1,61 @@
 import React from 'react'
 import NewWindow from 'react-new-window'
 
-export const Newwindows = () => (
-  <NewWindow>
-    <h1>Hi 👋</h1>
+//onUnload={reset}
+export const Newwindows = ({
+  nama,
+  umur,
+  jeniskelamin,
+  status,
+  umurbb,
+  daftar,
+  nama2,
+  umur2,
+  jeniskelamin2,
+  status2,
+  umurbb2,
+  daftar2,
+  reset }: {
+    nama: any,
+    jeniskelamin: any,
+    umur: any,
+    status: any,
+    umurbb: any,
+    daftar: any,
+    nama2: any,
+    jeniskelamin2: any,
+    umur2: any,
+    status2: any,
+    umurbb2: any,
+    daftar2: any,
+    reset: any
+  }) => (
+  <NewWindow >
+    <div className='nw'>
+      <div>
+        <h1>{nama} {`(${jeniskelamin})`}</h1>
+        <p>{umur.Year} Tahun {umur.Month} Bulan {umur.Day} Hari</p>
+        <p>{status}</p>
+        {status === 'Bayi' || status === '' ? '' :
+          <p>{umurbb}</p>
+        }
+        <p className='nwdaf'>Pemeriksaan</p>
+        {daftar.map((item:any) => (
+          <li key={item}>{item.Judul} - {item.Desc} {item.Desc2 === '' ? '' : `, ${item.Desc2}`}</li>
+        ))}
+      </div>
+      <div>
+        <h1>{nama2} {`(${jeniskelamin})`}</h1>
+        <p>{umur2.Year} Tahun {umur2.Month} Bulan {umur2.Day} Hari</p>
+        <p>{status2}</p>
+        {status2 === 'Bayi' || status2 === '' ? '' :
+          <p>{umurbb2}</p>
+        }
+        <p className='nwdaf'>Pemeriksaan</p>
+        {daftar2.map((item:any) => (
+          <li key={item}>{item.Judul} - {item.Desc} {item.Desc2 === '' ? '' : `, ${item.Desc2}`}</li>
+        ))}
+      </div>
+    </div>
   </NewWindow>
 )
