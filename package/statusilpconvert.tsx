@@ -34,14 +34,21 @@ export function Statusbmconvert({ status, umurbb }: { status: any, umurbb: any }
     if (umurbb >= 0 && status === 'Bumil') { return '>0BM' }
 }
 
+export function Daftarstat({ status,status2 }: { status: any,status2:any }) {
+    if (status === undefined) { return undefined }
+    const fd1 = daftar.filter(item => item.Opsi.includes(status) && !item.Opsi2.includes('Dilakukan di sekolah'));
+    const fd2 = daftarBM.filter(item => item.Opsi.includes(status2) );
+    const fd = fd2===undefined?fd1:fd1.concat(fd2)
+    return fd
+}
 export function Daftarstatus({ status }: { status: any }) {
-    if (status === undefined) { return }
+    if (status === undefined) { return undefined }
     const filteredDaftar = daftar.filter(item => item.Opsi.includes(status) && !item.Opsi2.includes('Dilakukan di sekolah'));
     return filteredDaftar
 }
 export function Daftarstatusbm({ status }: { status: any }) {
     if (status === undefined) { return }
-    const filteredDaftar = daftar.filter(item => item.Opsi.includes(status) );
+    const filteredDaftar = daftarBM.filter(item => item.Opsi.includes(status) );
     return filteredDaftar
 }
 
@@ -57,7 +64,6 @@ const daftar = [
     // { Judul: "Penyimpangan Perilaku dan emosi", Desc: '1x / Tahun', Desc2: '',Gender:'', Opsi: '>3Y, >4Y, >5Y, >6Y' , Opsi2:''},
     { Judul: "Ganguan Pemusatan Perhatian dan Hiperaktivitas (GPPH)", Desc: '1x / Tahun', Desc2: '', Gender: '', Opsi: '>3Y, >4Y, >5Y, >6Y', Opsi2: '' },
     { Judul: "Diabetes Melitus", Desc: '1x / Tahun', Desc2: 'Dengan Indikasi (Obesitas / Hipertensi', Gender: '', Opsi: '>6Y', Opsi2: '' },
-
 
     { Judul: "Gigi dan Mulut", Desc: '1x / tahun', Desc2: '', Gender: '', Opsi: '>7Y, >10Y, >12Y, >15Y', Opsi2: 'Dilakukan di sekolah' },
     { Judul: "Indera Pendengaran", Desc: '1x / tahun', Desc2: '', Gender: '', Opsi: '>6B, >9B, >16B, >18B, >2Y, >3Y, >4Y, >5Y, >6Y, >7Y, >10Y, >12Y, >15Y', Opsi2: 'Dilakukan di sekolah' },

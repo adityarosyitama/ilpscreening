@@ -24,6 +24,10 @@ export default function Datepicker({ startDate, setStartDate, age, setAge, minDa
   // console.log(minDate, Maxdate())
   return (
     <div className="flex flex-col gap-1">
+      <div className="flex flex-row justify-between">
+        <p>Tgl Lahir {'(tgl/bln/thn)'}</p>
+        {age.Year === 0 && age.Month === 0 && age.Day === 0 ? <p className='tw'>*wajib diisi</p> : ''}
+      </div>
       <DatePicker className="DP" selected={startDate} onChange={handlesave} maxDate={Maxdate()} dateFormat={'dd/MM/yyyy'} />
       {age.Year <= 0 && age.Month <= 0 && age.Day <= 0 ? '' :
         <p>{age.Year} Tahun {age.Month} Bulan {age.Day} Hari</p>

@@ -7,6 +7,8 @@ import Nobpjs from '../../package/nobpjs';
 import Buttonsubmit from '../../package/buttonsubmit';
 import Umurbb from '../../package/umurbb';
 import OpsiBB from '../../package/opsibb';
+import toast from 'react-hot-toast';
+import { Statusilpconvert, Statusbmconvert, Daftarstatus, Daftarstatusbm } from '../../package/statusilpconvert';
 
 export default function Option() {
     const [name, setName] = useState('')
@@ -34,18 +36,21 @@ export default function Option() {
     useEffect(() => {
         if (status === '' || status === 'Bayi' || status === 'Bumil') { return setUmurbb(0) }
         if (status === 'Busui') { return setUmurbb(calculateWeek(startDate2).Week) }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [age2, status])
 
     useEffect(() => {
         if (status2 === '' || status2 === 'Bayi' || status2 === 'Bumil') { return setUmurbb2(0) }
         if (status2 === 'Busui') { return setUmurbb2(calculateWeek(startDate).Week) }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [age, status2])
+    }, [age, startDate, status2])
 
     useEffect(() => {
         if (status === 'Busui') { return setStatus2('Bayi') }
     }, [status])
+
+    useEffect(()=>{
+        if(gender==='Laki-Laki') { setStatus(''); setStatus2(''); setGender(''); setGender2(''); setStartDate2(''), setAge2({ Year: 0, Month: 0, Day: 0 }) }
+    },[gender])
 
     const data = {
         nama: name,
@@ -83,48 +88,76 @@ export default function Option() {
     const minDate_ = () => {
         if (data.status2 === 'Busui') { return data.tanggallahir }
     }
+
+    const [opsishow, setOpsishow] = useState(false)
+
+    const handleSubmit = (event: any) => {
+        // event.preventDefault();
+        if (
+            data.nama === ''
+            || data.jeniskelamin === ''
+            || data.tanggallahir === ''
+        ) { return }
+        if (
+            data.umur.Year === 0 &&
+            data.umur.Month === 0 &&
+            data.umur.Day === 0
+        ) { return }
+        if(data.status2==='Busui'|| data.status2==='Bayi'){
+            if (
+                 data.nama2 === ''
+                || data.jeniskelamin2 === ''
+                || data.tanggallahir2 === ''
+            ) { return }
+            if (
+                data.umur2.Year === 0 &&
+                data.umur2.Month === 0 &&
+                data.umur2.Day === 0
+            ) { return }
+        }
+        setOpsishow(!opsishow)
+    };
+
+    // const A = Statusilpconvert({ umur: data.umur })
+    // const Abm = Statusbmconvert({ status: data.status, umurbb: data.umurbb })
+    // const B = Statusilpconvert({ umur: data.umur2 })
+
+    // console.log('data', data, A, Daftarstatus({ status: A }), Daftarstatusbm({ status: Abm }), B, Daftarstatus({ status: B }))
+
     return (
         <div className='flex flex-col md:gap-10 gap-3'>
             <p className='flex font-bold text-center md:text-5xl text-2xl text-cyan-400'>status Pilihan</p>
             <div className='flex sm:flex-row flex-col justify-between md:gap-20 gap-10 '>
                 <div className='flex flex-col gap-1'>
                     <div>
-                        <p>Nama Lengkap</p>
-                        <Namalengkap name={name} setName={setName} />
+                        <Namalengkap name={name} setName={setName} status2={undefined} />
                     </div>
                     <div>
-                        <p>Tanggal Lahir {'(tgl/bln/thn)'}</p>
                         <Datepicker setStartDate={setStartDate} startDate={startDate} age={age} setAge={setAge} minDate={undefined} />
                     </div>
                     <div className='flex flex-row justify-between gap-3'>
+                        <Jeniskelamin gender={gender} setGender={setGender} status={undefined}/>
                         <div>
-                            <p>Jenis Kelamin</p>
-                            <div className='flex flex-row justify-between gap-3'>
-                                <Jeniskelamin gender={gender} setGender={setGender} />
-                                <div>
-                                    {
-                                        gender === "Perempuan" && age.Year >= 5 ?
-                                            <OpsiBB opsibb={status} setOpsibb={setStatus} />
-                                            : ""
-                                    }
-                                    {
-                                        status === "Bumil" && age.Year >= 5 ?
-                                            <div>
-                                                <p>Umur Bumil</p>
-                                                <Umurbb umurbb={umurbb} setUmurbb={setUmurbb} status={status} />
-                                            </div>
-                                            :
-                                            status === "Busui" && age.Year >= 5 ?
-                                                <div>
-                                                    <p>Umur Busui</p>
-                                                    <Umurbb umurbb={umurbb} setUmurbb={setUmurbb} status={status} />
-                                                </div>
-                                                : ""
-                                    }
-                                </div>
-                            </div>
+                            {
+                                gender === "Perempuan" && age.Year >= 5 ?
+                                    <OpsiBB opsibb={status} setOpsibb={setStatus} />
+                                    : ""
+                            }
+                            {
+                                status === "Bumil" && age.Year >= 5 ?
+                                    <div>
+                                        <p>Umur Bumil</p>
+                                        <Umurbb umurbb={umurbb} setUmurbb={setUmurbb} status={status} />
+                                    </div>
+                                    :
+                                    status === "Busui" && age.Year >= 5 ?
+                                        <div>
+                                            <p>Umur Busui</p>
+                                            <Umurbb umurbb={umurbb} setUmurbb={setUmurbb} status={status} />
+                                        </div>
+                                        : ""
+                            }
                         </div>
-
                     </div>
                     {/* <div>
                         <p>Nomor BPJS</p>
@@ -136,16 +169,13 @@ export default function Option() {
                         :
                         <div className='flex flex-col gap-1'>
                             <div>
-                                <p>Nama Lengkap {status2}</p>
-                                <Namalengkap name={name2} setName={setName2} />
+                                <Namalengkap name={name2} setName={setName2} status2={status2} />
                             </div>
                             <div>
-                                <p>Tanggal Lahir {'(tgl/bln/thn)'}</p>
                                 <Datepicker setStartDate={setStartDate2} startDate={startDate2} age={age2} setAge={setAge2} minDate={minDate_()} />
                             </div>
                             <div>
-                                <p>Jenis Kelamin</p>
-                                <Jeniskelamin gender={gender2} setGender={setGender2} />
+                                <Jeniskelamin gender={gender2} setGender={setGender2} status={status2} />
                                 <div>
                                     {
                                         age.Year >= 5 ? '' :
@@ -164,10 +194,10 @@ export default function Option() {
                 }
             </div>
             <div className='flex flex-row gap-5'>
-                <Buttonsubmit data={data} reset={handleReset} />
+                <Buttonsubmit data={data} reset={handleReset} handleSubmit={handleSubmit} opsishow={opsishow} setOpsishow={setOpsishow}/>
                 <div>
                     <form >
-                    {/* onSubmit={handleReset} */}
+                        {/* onSubmit={handleReset} */}
                         <button className='button' type='submit'>Reset</button>
                     </form>
                 </div>

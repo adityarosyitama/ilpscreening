@@ -36,6 +36,7 @@ export default function Umurbb({ umurbb, setUmurbb, status }: { umurbb: any, set
           <p>{umurbb} Minggu</p>
           : ''
       }
+      {status === "Bumil" && umurbb === 0 ? <p className='tw'>*wajib diisi</p> : ''}
     </div>
   );
 }
