@@ -19,12 +19,12 @@ export function Statusilpconvert({ umur }: { umur: any }) {
     if (umur.Year >= 4) { return '>4Y' }
     if (umur.Year >= 3) { return '>3Y' }
     if (umur.Year >= 2) { return '>2Y' }
-    if (umur.Month >= 18) { return '>18B' }
-    if (umur.Month >= 16) { return '>16B' }
-    if (umur.Year >= 9) { return '>9B' }
-    if (umur.Year >= 6) { return '>6B' }
-    if (umur.Year >= 2) { return '>2B' }
-    if (umur.Year >= 1) { return '>1B' }
+    if (umur.Month >= 18) { return '>18M' }
+    if (umur.Month >= 16) { return '>16M' }
+    if (umur.Year >= 9) { return '>9M' }
+    if (umur.Year >= 6) { return '>6M' }
+    if (umur.Year >= 2) { return '>2M' }
+    if (umur.Year >= 1) { return '>1M' }
     if (umur.Day >= 1) { return '>1D' }
 }
 
@@ -41,32 +41,32 @@ export function Daftarstat({ status,status2 }: { status: any,status2:any }) {
     const fd = fd2===undefined?fd1:fd1.concat(fd2)
     return fd
 }
-export function Daftarstatus({ status }: { status: any }) {
-    if (status === undefined) { return undefined }
-    const filteredDaftar = daftar.filter(item => item.Opsi.includes(status) && !item.Opsi2.includes('Dilakukan di sekolah'));
-    return filteredDaftar
-}
-export function Daftarstatusbm({ status }: { status: any }) {
-    if (status === undefined) { return }
-    const filteredDaftar = daftarBM.filter(item => item.Opsi.includes(status) );
-    return filteredDaftar
-}
+// export function Daftarstatus({ status }: { status: any }) {
+//     if (status === undefined) { return undefined }
+//     const filteredDaftar = daftar.filter(item => item.Opsi.includes(status) && !item.Opsi2.includes('Dilakukan di sekolah'));
+//     return filteredDaftar
+// }
+// export function Daftarstatusbm({ status }: { status: any }) {
+//     if (status === undefined) { return }
+//     const filteredDaftar = daftarBM.filter(item => item.Opsi.includes(status) );
+//     return filteredDaftar
+// }
 
 
 const daftar = [
     { Judul: "Hipotiroid Kongenital", Desc: '1x Usia 48 - 72 Jam', Desc2: '', Gender: '', Opsi: '>1D', Opsi2: '' },
     { Judul: "Penyakit Jantung Bawaan", Desc: '1x Usia 24-48 Jam atau sebelum pulang dari faskes', Desc2: '', Gender: '', Opsi: '>1D', Opsi2: '' },
-    { Judul: "Timbang Berat Badan, Ukur Tinggi badan dan Pantau Tumbuh Kembang", Desc: '1x / Bulan', Desc2: '', Gender: '', Opsi: '>1D, >1B, >2B, >6B, >9B, >16B, >18B, >2Y, >3Y, >4Y, >5Y, >6Y', Opsi2: '' },
-    { Judul: "Gigi dan Mulut", Desc: '1x / Bulan', Desc2: '', Gender: '', Opsi: '>1B, >2B, >6B, >9B, >16B, >18B, >2Y, >3Y, >4Y, >5Y, >6Y', Opsi2: '' },
-    // { Judul: "Indera Pendengaran", Desc: '1x / Tahun', Desc2: '',Gender:'', Opsi: '>6B, >9B, >16B, >18B, >2Y, >3Y, >4Y, >5Y, >6Y' , Opsi2:''},
-    { Judul: "Ganguan Spektrum Autism", Desc: '1x / rentang 16 bulan 2,5 Tahun', Desc2: '', Gender: '', Opsi: '>16B, >18B, >2Y, >3Y, >4Y, >5Y, >6Y', Opsi2: '' },
+    { Judul: "Timbang Berat Badan, Ukur Tinggi badan dan Pantau Tumbuh Kembang", Desc: '1x / Bulan', Desc2: '', Gender: '', Opsi: '>1D, >1M, >2M, >6M, >9M, >16M, >18M, >2Y, >3Y, >4Y, >5Y, >6Y', Opsi2: '' },
+    { Judul: "Gigi dan Mulut", Desc: '1x / Bulan', Desc2: '', Gender: '', Opsi: '>1M, >2M, >6M, >9M, >16M, >18M, >2Y, >3Y, >4Y, >5Y, >6Y', Opsi2: '' },
+    // { Judul: "Indera Pendengaran", Desc: '1x / Tahun', Desc2: '',Gender:'', Opsi: '>6M, >9M, >16M, >18M, >2Y, >3Y, >4Y, >5Y, >6Y' , Opsi2:''},
+    { Judul: "Ganguan Spektrum Autism", Desc: '1x / rentang 16 bulan 2,5 Tahun', Desc2: '', Gender: '', Opsi: '>16M, >18M, >2Y, >3Y, >4Y, >5Y, >6Y', Opsi2: '' },
     { Judul: "Penyimpangan Perilaku dan emosi", Desc: '1x / Tahun', Desc2: '', Gender: '', Opsi: '>3Y, >4Y, >5Y, >6Y', Opsi2: '' },
     // { Judul: "Penyimpangan Perilaku dan emosi", Desc: '1x / Tahun', Desc2: '',Gender:'', Opsi: '>3Y, >4Y, >5Y, >6Y' , Opsi2:''},
     { Judul: "Ganguan Pemusatan Perhatian dan Hiperaktivitas (GPPH)", Desc: '1x / Tahun', Desc2: '', Gender: '', Opsi: '>3Y, >4Y, >5Y, >6Y', Opsi2: '' },
     { Judul: "Diabetes Melitus", Desc: '1x / Tahun', Desc2: 'Dengan Indikasi (Obesitas / Hipertensi', Gender: '', Opsi: '>6Y', Opsi2: '' },
 
     { Judul: "Gigi dan Mulut", Desc: '1x / tahun', Desc2: '', Gender: '', Opsi: '>7Y, >10Y, >12Y, >15Y', Opsi2: 'Dilakukan di sekolah' },
-    { Judul: "Indera Pendengaran", Desc: '1x / tahun', Desc2: '', Gender: '', Opsi: '>6B, >9B, >16B, >18B, >2Y, >3Y, >4Y, >5Y, >6Y, >7Y, >10Y, >12Y, >15Y', Opsi2: 'Dilakukan di sekolah' },
+    { Judul: "Indera Pendengaran", Desc: '1x / tahun', Desc2: '', Gender: '', Opsi: '>6M, >9M, >16M, >18M, >2Y, >3Y, >4Y, >5Y, >6Y, >7Y, >10Y, >12Y, >15Y', Opsi2: 'Dilakukan di sekolah' },
     { Judul: "Indera Pengelihatan", Desc: '1x / tahun', Desc2: '', Gender: '', Opsi: '>7Y, >10Y, >12Y, >15Y', Opsi2: 'Dilakukan di sekolah' },
     { Judul: "Indera Pengelihatan", Desc: '1x / tahun', Desc2: '', Gender: '', Opsi: '>7Y, >10Y, >12Y, >15Y', Opsi2: 'Dilakukan di sekolah' },
     { Judul: "Obesitas", Desc: '1x / tahun', Desc2: '', Gender: '', Opsi: '>7Y, >10Y, >12Y, >15Y', Opsi2: 'Dilakukan di sekolah' },
@@ -109,3 +109,73 @@ const daftarBM = [
     { Judul: "Sifilis", Desc: '1x / Kehamilan', Desc2: '', Gender: '', Opsi: '>0BM', Opsi2: '' },
     { Judul: "Gigi dan Mulut", Desc: '1x / Kehamilan', Desc2: '', Gender: '', Opsi: '>0BM', Opsi2: '' },
 ]
+
+export function convertskring(i:any){
+    if (daftarB.includes(i)) {
+        return `Skrining Kesehatan Bayi, Balita dan Anak Pra Sekolah (Kelompok ${convertAge(i)})`;
+    } 
+    if (daftarR.includes(i)) {
+        return `Skrining Kesehatan Anak Usia Sekolah dan Remaja (Kelompok ${convertAge(i)})`;
+    } 
+    if (daftarD.includes(i)) {
+        return `Skrining Kesehatan Usia Dewasa dan Lanjut Usia (Kelompok ${convertAge(i)})`;
+    } 
+}
+
+function convertAge(age:any) {
+    if(age==='>1D'){return 'Bayi Baru Lahir'}
+    return `${age.slice(1, age.length - 1)} ${lastchr(age)}`
+}
+
+function lastchr (str:any) {
+    if(str[str.length - 1]==='Y'){return 'Tahun'}
+    if(str[str.length - 1]==='M'){return 'Bulan'}
+}
+
+const daftarD = [
+    '>60Y',
+    '>50Y',
+    '>45Y',
+    '>40Y',
+    '>30Y',
+    '>19Y',
+    '>18Y',
+];
+const daftarR = [
+    '>15Y',
+    '>12Y',
+    '>10Y',
+    '>7Y',
+];
+const daftarB = [
+    '>6Y',
+    '>5Y',
+    '>4Y',
+    '>3Y',
+    '>2Y',
+    '>18M',
+    '>16M',
+    '>9M',
+    '>6M',
+    '>2M',
+    '>1M',
+    '>1D'
+];
+
+export function convertskringbs(i:any){
+    if (daftarBs.includes(i)) {
+        return `Skrining Kesehatan Ibu Hamil (Kelompok ${convertBs(i)})`;
+    } 
+}
+
+function convertBs(age:any) {
+    if(parseInt(age.slice(1, age.length - 2))===0){return '0 - 12 Minggu'}
+    if(parseInt(age.slice(1, age.length - 2))===12){return '12 - 24 Minggu'}
+    if(parseInt(age.slice(1, age.length - 2))===24){return '24 - 40 Minggu'}
+}
+
+const daftarBs = [
+    '>24BM',
+    '>12BM',
+    '>0BM',
+];

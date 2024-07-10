@@ -64,3 +64,11 @@ export function calculateWeek(birthDate: any) {
   // if (days > 40) { return }
   return { Week: days };
 }
+export function calculateWeek2(birthDate: any) {
+  let date1 = new Date(birthDate);
+  let date2 = new Date();
+  let difference = Number(date2.getTime()) - Number(date1.getTime());
+  let days = Math.floor(difference / (1000 * 60 * 60 * 24) / 7);
+  // if (days > 40) { return }
+  return days;
+}

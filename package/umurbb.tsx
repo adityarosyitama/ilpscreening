@@ -7,7 +7,7 @@ export default function Umurbb({ umurbb, setUmurbb, status }: { umurbb: any, set
     const value = event.target.value.replace(/[^0-9]/g, '');
     const result = parseInt(value);
 
-    if (isNaN(result) || result < 0 || result > 9) {
+    if (isNaN(result) || result < 0 || result > 40) {
       return;
     }
 

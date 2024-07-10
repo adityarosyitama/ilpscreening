@@ -1,14 +1,12 @@
 "use client"
-import React, { use, useEffect, useState } from 'react'
-import Datepicker, { calculateWeek } from '../../package/datepicker';
+import React, { useEffect, useState } from 'react'
+import Datepicker, { calculateWeek, calculateWeek2 } from '../../package/datepicker';
 import Jeniskelamin from '../../package/jeniskelamin';
 import Namalengkap from '../../package/namalengkap';
 import Nobpjs from '../../package/nobpjs';
 import Buttonsubmit from '../../package/buttonsubmit';
 import Umurbb from '../../package/umurbb';
 import OpsiBB from '../../package/opsibb';
-import toast from 'react-hot-toast';
-import { Statusilpconvert, Statusbmconvert, Daftarstatus, Daftarstatusbm } from '../../package/statusilpconvert';
 
 export default function Option() {
     const [name, setName] = useState('')
@@ -30,27 +28,28 @@ export default function Option() {
     useEffect(() => {
         if (age.Year === 0 && age.Month === 0 && age.Day === 0) { return (setStatus(''), setStatus2('')), setStartDate2('') }
         if (age.Year >= 0 && age.Year <= 5) { setStatus('Bayi'); setStatus2('Busui'); setGender(''); setGender2('Perempuan'); setStartDate2(''), setAge2({ Year: 0, Month: 0, Day: 0 }) }
-        if (age.Year >= 5) { setStatus(''); setStatus2(''); setGender(''); setGender2(''); setStartDate2(''), setAge2({ Year: 0, Month: 0, Day: 0 }) }
+        if (age.Year >= 5) { setStatus(''); setStatus2(''); setGender(''); setGender2(''); setStartDate2(''); setAge2({ Year: 0, Month: 0, Day: 0 }) }
     }, [age])
 
     useEffect(() => {
         if (status === '' || status === 'Bayi' || status === 'Bumil') { return setUmurbb(0) }
-        if (status === 'Busui') { return setUmurbb(calculateWeek(startDate2).Week) }
+        if (status === 'Busui') { return setUmurbb(calculateWeek2(startDate2)) }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [age2, status])
 
     useEffect(() => {
         if (status2 === '' || status2 === 'Bayi' || status2 === 'Bumil') { return setUmurbb2(0) }
-        if (status2 === 'Busui') { return setUmurbb2(calculateWeek(startDate).Week) }
+        if (status2 === 'Busui') { return setUmurbb2(calculateWeek2(startDate)) }
     }, [age, startDate, status2])
 
     useEffect(() => {
+        if (status === 'Bumil') { return setName2(''), setGender2(''), setStartDate2(''), setAge2({ Year: 0, Month: 0, Day: 0 }), setStatus2('') }
         if (status === 'Busui') { return setStatus2('Bayi') }
     }, [status])
 
-    useEffect(()=>{
-        if(gender==='Laki-Laki') { setStatus(''); setStatus2(''); setGender(''); setGender2(''); setStartDate2(''), setAge2({ Year: 0, Month: 0, Day: 0 }) }
-    },[gender])
+    useEffect(() => {
+        // if(gender==='Laki-Laki') { setStatus(''); setStatus2('') }
+    }, [gender])
 
     const data = {
         nama: name,
@@ -103,9 +102,9 @@ export default function Option() {
             data.umur.Month === 0 &&
             data.umur.Day === 0
         ) { return }
-        if(data.status2==='Busui'|| data.status2==='Bayi'){
+        if (data.status2 === 'Busui' || data.status2 === 'Bayi') {
             if (
-                 data.nama2 === ''
+                data.nama2 === ''
                 || data.jeniskelamin2 === ''
                 || data.tanggallahir2 === ''
             ) { return }
@@ -136,7 +135,7 @@ export default function Option() {
                         <Datepicker setStartDate={setStartDate} startDate={startDate} age={age} setAge={setAge} minDate={undefined} />
                     </div>
                     <div className='flex flex-row justify-between gap-3'>
-                        <Jeniskelamin gender={gender} setGender={setGender} status={undefined}/>
+                        <Jeniskelamin gender={gender} setGender={setGender} status={undefined} />
                         <div>
                             {
                                 gender === "Perempuan" && age.Year >= 5 ?
@@ -194,7 +193,7 @@ export default function Option() {
                 }
             </div>
             <div className='flex flex-row gap-5'>
-                <Buttonsubmit data={data} reset={handleReset} handleSubmit={handleSubmit} opsishow={opsishow} setOpsishow={setOpsishow}/>
+                <Buttonsubmit data={data} reset={handleReset} handleSubmit={handleSubmit} opsishow={opsishow} setOpsishow={setOpsishow} />
                 <div>
                     <form >
                         {/* onSubmit={handleReset} */}

@@ -1,9 +1,8 @@
-import React, { use, useEffect, useState } from 'react'
+import React from 'react'
 import "./style.css"
 import { Newwindows } from './newwindow';
-// import { toast } from 'react-toastify';
-import { Daftarstat, Daftarstatus, Daftarstatusbm, Statusbmconvert, Statusilpconvert } from './statusilpconvert';
-import toast from 'react-hot-toast';
+import { convertskringbs, Daftarstat, Statusbmconvert, Statusilpconvert } from './statusilpconvert';
+
 
 export default function Buttonsubmit({ data, reset, opsishow, handleSubmit, setOpsishow }: { data: any, reset: any, opsishow: any, handleSubmit: any, setOpsishow: any }) {
     // const [opsishow, setOpsishow] = useState(false)
@@ -25,7 +24,8 @@ export default function Buttonsubmit({ data, reset, opsishow, handleSubmit, setO
     const Bbm = Statusbmconvert({ status: data.status2, umurbb: data.umurbb2 })
     // const Bbmn = Daftarstatus({ status: B }) === undefined ? undefined : Daftarstatusbm({ status: Bbm }) === undefined ? Daftarstatus({ status: B }) : [...Daftarstatus({ status: B }), ...Daftarstatusbm({ status: Bbm })]
     // const Bbmn = undefined
-    // console.log('data', Daftarstat({status:A,status2:Abm}))
+    // console.log(data)
+    // console.log('data', Abm, convertskringbs(Abm))
 
     return (
         <div>
@@ -33,23 +33,28 @@ export default function Buttonsubmit({ data, reset, opsishow, handleSubmit, setO
                 <button className='button' type="submit">Submit</button>
             </form>
             {
-                opsishow ? <Newwindows
-                    handleSubmit={handleSubmit}
-                    setOpsishow={setOpsishow}
-                    reset={reset}
-                    nama={data.nama}
-                    jeniskelamin={data.jeniskelamin}
-                    umur={data.umur}
-                    status={data.status}
-                    umurbb={data.umurbb}
-                    daftar={Daftarstat({status:A,status2:Abm})}
-                    nama2={data.nama2}
-                    jeniskelamin2={data.jeniskelamin2}
-                    umur2={data.umur2}
-                    status2={data.status2}
-                    umurbb2={data.umurbb2}
-                    daftar2={Daftarstat({status:B,status2:Bbm})}
-                /> : ''
+                opsishow ?
+                    <Newwindows
+                        handleSubmit={handleSubmit}
+                        setOpsishow={setOpsishow}
+                        reset={reset}
+                        nama={data.nama}
+                        jeniskelamin={data.jeniskelamin}
+                        umur={data.umur}
+                        status={data.status}
+                        umurbb={data.umurbb}
+                        ket={A}
+                        ket_={convertskringbs(Abm)}
+                        daftar={Daftarstat({ status: A, status2: Abm })}
+                        nama2={data.nama2}
+                        jeniskelamin2={data.jeniskelamin2}
+                        umur2={data.umur2}
+                        status2={data.status2}
+                        umurbb2={data.umurbb2}
+                        ket2={B}
+                        ket_2={undefined}
+                        daftar2={Daftarstat({ status: B, status2: Bbm })}
+                    /> : ''
             }
         </div>
     );
