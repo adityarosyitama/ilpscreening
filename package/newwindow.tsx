@@ -55,9 +55,10 @@ export const Newwindows = ({
         <p>Jenis : {convertskring(ket)}</p>
         {status === 'Bumil' ? <p>{ket_}</p> : ''}
         <p className='nwdaf'>Pemeriksaan</p>
-        {daftar.map((item: any) => (
-          <li key={item}>{item.Judul} - {item.Desc} {item.Desc2 === '' ? '' : `, ${item.Desc2}`}</li>
-        ))}
+        {daftar === undefined ? '' :
+          daftar.map((item: any) => (
+            <li key={item}>{item.Judul} - {item.Desc} {item.Desc2 === '' ? '' : `, ${item.Desc2}`}</li>
+          ))}
       </div>
       {status2 === '' || daftar2 === undefined ? '' :
         <div>
@@ -71,7 +72,7 @@ export const Newwindows = ({
             <p>Jenis : {convertskring(ket2)}</p>
           </div>
           <p className='nwdaf'>Pemeriksaan</p>
-          {
+          {daftar2 === undefined ? '' :
             daftar2.map((item: any) => (
               <li key={item}>{item.Judul} - {item.Desc} {item.Desc2 === '' ? '' : `, ${item.Desc2}`}</li>
             ))

@@ -91,7 +91,8 @@ export default function Option() {
     const [opsishow, setOpsishow] = useState(false)
 
     const handleSubmit = (event: any) => {
-        // event.preventDefault();
+        if(event===null){return}
+        event.preventDefault();
         if (
             data.nama === ''
             || data.jeniskelamin === ''
@@ -195,7 +196,7 @@ export default function Option() {
             <div className='flex flex-row gap-5'>
                 <Buttonsubmit data={data} reset={handleReset} handleSubmit={handleSubmit} opsishow={opsishow} setOpsishow={setOpsishow} />
                 <div>
-                    <form >
+                    <form onSubmit={handleReset}>
                         {/* onSubmit={handleReset} */}
                         <button className='button' type='submit'>Reset</button>
                     </form>
