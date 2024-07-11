@@ -57,7 +57,10 @@ export const Newwindows = ({
         <p className='nwdaf'>Pemeriksaan</p>
         {daftar === undefined ? '' :
           daftar.map((item: any) => (
-            <li key={item}>{item.Judul} - {item.Desc} {item.Desc2 === '' ? '' : `, ${item.Desc2}`}</li>
+            <li key={item} className='flex flex-row'>
+              <p>{item.Judul} - {item.Desc} {item.Desc2 === '' ? '' : `, ${item.Desc2}`}
+              </p>{item.Opsi2 === '' ? '' : <p className='dftext'>*Dilakukan di sekolah</p>}
+            </li>
           ))}
       </div>
       {status2 === '' || daftar2 === undefined ? '' :

@@ -24,7 +24,7 @@
     color: rgb(0, 0, 0);
     height: auto;
     padding: 10px;
-    padding-right: 50%;
+    /* padding-right: 30%; */
 }
 
 .nwdaf{
@@ -33,4 +33,7 @@
 }
 .tw{
     color: rgb(220, 53, 53);
+}
+.dftext{
+    font-weight: bolder;
 }

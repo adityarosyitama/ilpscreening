@@ -36,7 +36,7 @@ export function Statusbmconvert({ status, umurbb }: { status: any, umurbb: any }
 
 export function Daftarstat({ status,status2 }: { status: any,status2:any }) {
     if (status === undefined) { return undefined }
-    const fd1 = daftar.filter(item => item.Opsi.includes(status) && !item.Opsi2.includes('Dilakukan di sekolah'));
+    const fd1 = daftar.filter(item => item.Opsi.includes(status) ); //&& !item.Opsi2.includes('Dilakukan di sekolah')
     const fd2 = daftarBM.filter(item => item.Opsi.includes(status2) );
     const fd = fd2===undefined?fd1:fd1.concat(fd2)
     return fd
